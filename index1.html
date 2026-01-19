@@ -255,14 +255,21 @@
                 </div>
                 <div style="text-align: right;">
                     <a href="mailto:hello@888080.xyz" style="color: inherit;">Email</a> / 
-                    <!-- <a href="#" style="color: inherit;">Instagram</a> /  -->
                     <a href="#" style="color: inherit;">LinkedIn</a>
                 </div>
+            </div>
+            <div style="margin-top: 40px; border-top: 1px solid var(--border-soft); padding-top: 20px; font-size: 0.8rem; color: var(--ink-gray);">
+                &copy; <span id="year"></span> [Your Name]. All Rights Reserved.
             </div>
         </footer>
 
     </div>
 </main>
 
+<script>
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+</script>
+
 </body>
 </html>
+
