@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stabiliq | Infrastructure Responsibility</title>
+    <style>
+        :root {
+            /* Paper & Ink Palette */
+            --bg-paper: #fdfcfb;
+            --container-bg: #fcfbf7;
+            --ink-black: #2a2a2a;
+            --ink-gray: #5a5a5a;
+            --ink-accent: #3b3b3b;
+            --margin-line: #f1e0e0;
+            --grid-line: rgba(0, 0, 0, 0.04);
+            --border-soft: #e0ddd8;
+            --shadow-paper: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        * { box-sizing: border-box; }
+        
+        html { 
+            scroll-behavior: smooth; 
+            background-color: var(--bg-paper);
+        }
+
+        body {
+            font-family: "Charter", "Bitstream Charter", "Iowan Old Style", "Sitka Text", Palatino, serif;
+            line-height: 1.7;
+            color: var(--ink-black);
+            margin: 0;
+            padding: 20px 0;
+            -webkit-font-smoothing: antialiased;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 25px 25px;
+        }
+
+        /* Layout Container */
+        .page-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            border: 1px solid var(--border-soft);
+            border-radius: 2px;
+            box-shadow: var(--shadow-paper);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* The Margin Line - Responsive Positioning */
+        .page-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 40px; /* Mobile width */
+            bottom: 0;
+            width: 1px;
+            background: var(--margin-line);
+            z-index: 2;
+        }
+
+        .container {
+            padding: 40px 20px 40px 60px; /* Mobile padding - prevents crushing */
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: "Iowan Old Style", "Apple Garamond", serif;
+            font-weight: 700;
+            margin-top: 0;
+            letter-spacing: -0.01em;
+        }
+
+        h1 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 1.5rem; }
+        h2 { font-size: 1.4rem; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border-soft); display: inline-block; }
+        h3 { font-size: 1.2rem; margin-bottom: 0.8rem; font-style: italic; }
+
+        p { 
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 1.05rem; 
+            color: var(--ink-gray);
+            max-width: 600px;
+        }
+
+        .anchor-line {
+            font-style: italic;
+            font-family: serif;
+            font-size: 1.1rem;
+            margin: 2rem 0;
+            color: var(--ink-black);
+        }
+
+        /* Buttons & Links - Fixed for Mobile */
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap; /* Allows stacking on mobile */
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: var(--ink-black);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            display: inline-block;
+            border-bottom: 2px solid var(--ink-accent); /* Reliable underline for mobile */
+        }
+
+        /* Grid System */
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Mobile defaults to one column */
+            gap: 30px;
+        }
+
+        /* Notebook-style Lists */
+        ul { list-style: none; padding: 0; }
+        ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            font-family: system-ui, sans-serif;
+            font-size: 0.95rem;
+        }
+        ul li::before {
+            content: '~';
+            position: absolute;
+            left: 0;
+            color: var(--ink-accent);
+            font-family: cursive;
+        }
+
+        .pricing-card {
+            background: rgba(0,0,0,0.02);
+            padding: 30px;
+            border: 1px dashed var(--border-soft);
+            border-radius: 4px;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-family: serif;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        footer { padding: 40px 0; font-size: 0.9rem; }
+
+        /* DESKTOP ENHANCEMENTS (Tablet and Up) */
+        @media (min-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.6rem; }
+            .page-wrapper::before { left: 60px; }
+            .container { padding: 60px 60px 60px 100px; }
+            .grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .btn { border-bottom: none; } /* Remove solid border for fancy effect */
+            
+            .btn::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: var(--ink-accent);
+                transform: scaleX(0.8);
+                transition: transform 0.3s ease;
+            }
+            .btn:hover::after { transform: scaleX(1); }
+            
+            .cta-group { gap: 25px; }
+            section { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<main class="page-wrapper">
+    <div class="container">
+        
+        <header>
+            <h1>When your infrastructure breaks, you shouldn't panic.</h1>
+            <p>Stabiliq takes full responsibility for your servers, automations, and internal tools — so you're not the one firefighting at 2am.</p>
+            <p class="anchor-line">Fractional infrastructure operations for small teams.</p>
+            <div class="cta-group">
+                <a href="mailto:hello@888080.xyz" class="btn">Talk to Me</a>
+                <a href="#how" class="btn">How This Works ↓</a>
+            </div>
+        </header>
+
+        <section>
+            <div class="grid">
+                <div>
+                    <h2>Technical Risk</h2>
+                    <p>If you run a small tech business, you're often the fallback for everything that breaks. That's a recipe for burnout.</p>
+                </div>
+                <div>
+                    <ul>
+                        <li>Hosting dashboards are confusing</li>
+                        <li>Backups are "probably" working</li>
+                        <li>Security updates are months behind</li>
+                        <li>You're never fully "off-the-clock"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="how">
+            <h2>Ownership, not just hosting.</h2>
+            <div class="grid" style="margin-top: 30px;">
+                <div>
+                    <h3>What We handle</h3>
+                    <ul>
+                        <li>24/7 Server monitoring</li>
+                        <li>Automated failover management</li>
+                        <li>Security patching & CI/CD</li>
+                        <li>Direct human accountability</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Simple by design</h3>
+                    <p>We don't just give you a dashboard. We take over the responsibility. If it goes down, We fix it. You just get the report.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="pricing-card">
+                <h2>Pricing</h2>
+                <div class="price-tag">$250<span style="font-size: 1rem; font-weight: normal;">/month</span></div>
+                <p>Starts at $250/mo for basic oversight. Custom plans are also available for high-criticality systems.</p>
+                <a href="mailto:hello@888080.xyz" class="btn">Inquire about your setup</a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="grid">
+                <div>
+                    <strong>Stabiliq</strong><br>
+                    Infrastructure for Humans.<br>
+                        <a href="mailto:hello@888080.xyz" style="color: inherit;">hello@888080.xyz</a> &nbsp; / &nbsp; 
+                        <a href="https://888080.xyz" style="color: inherit;">888080.xyz</a>
+                </div>
+                <div style="text-align: right;">
+                    <a href="mailto:hello@888080.xyz" style="color: inherit;">Email</a> / 
+                    <!-- <a href="#" style="color: inherit;">Instagram</a> /  -->
+                    <a href="#" style="color: inherit;">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</main>
+
+</body>
+</html>
